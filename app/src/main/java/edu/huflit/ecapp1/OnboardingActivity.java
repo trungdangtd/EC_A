@@ -18,7 +18,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     LinearLayout dotsLayout;
-
+//
     Button btn;
     SliderAdapter sliderAdapter;
     TextView[] dots;
