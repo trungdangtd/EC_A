@@ -3,10 +3,13 @@ package edu.huflit.ecapp1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +22,8 @@ public class OnboardingActivity extends AppCompatActivity {
     Button btn;
     SliderAdapter sliderAdapter;
     TextView[] dots;
+
+    Animation animation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,12 @@ public class OnboardingActivity extends AppCompatActivity {
         // gọi adapter
         sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OnboardingActivity.this,RegistrationActivity.class));
+            }
+        });
     }
 
     private void addDots(int position){
@@ -75,6 +86,8 @@ public class OnboardingActivity extends AppCompatActivity {
                 btn.setVisibility(View.INVISIBLE);
 
             }else {
+                animation = AnimationUtils.loadAnimation(OnboardingActivity.this,R.anim.slide_animation);
+                btn.setAnimation(animation);
                 btn.setVisibility(View.VISIBLE);
             }
         }
