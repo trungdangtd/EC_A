@@ -32,13 +32,13 @@ public class HomeFragment extends Fragment {
         View root= inflater.inflate(R.layout.fragment_home,container,false);
 
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);
-        List<SlideModel> slideModelList = new ArrayList<>();
+        List<SlideModel> slideModels = new ArrayList<>();
 
-        slideModelList.add(new SlideModel(R.drawable.banner1,"Discount On Shoes Items", ScaleTypes.CENTER_CROP));
-        slideModelList.add(new SlideModel(R.drawable.banner2,"Discount On Perfume", ScaleTypes.CENTER_CROP));
-        slideModelList.add(new SlideModel(R.drawable.banner3,"70%", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner1,"Discount On Shoes Items", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner2,"Discount On Perfume", ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner3,"70% off", ScaleTypes.CENTER_CROP));
 
-        imageSlider.setImageList(slideModelList);
+        imageSlider.setImageList(slideModels);
         return root;
     }
 }
