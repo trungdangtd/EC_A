@@ -1,8 +1,10 @@
-package edu.huflit.ecapp1;
+package edu.huflit.ecapp1.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import edu.huflit.ecapp1.R;
 
 public class LoginActivity extends AppCompatActivity {
 

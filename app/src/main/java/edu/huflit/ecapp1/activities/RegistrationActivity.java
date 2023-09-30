@@ -1,4 +1,4 @@
-package edu.huflit.ecapp1;
+package edu.huflit.ecapp1.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import edu.huflit.ecapp1.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -79,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(RegistrationActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                         }
                         else {
                             Toast.makeText(RegistrationActivity.this, "Đăng ký thất bại" + task.getException(), Toast.LENGTH_SHORT).show();

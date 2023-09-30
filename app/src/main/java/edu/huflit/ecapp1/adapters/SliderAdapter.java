@@ -1,4 +1,4 @@
-package edu.huflit.ecapp1;
+package edu.huflit.ecapp1.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import org.w3c.dom.Text;
+
+import edu.huflit.ecapp1.R;
 
 public class SliderAdapter extends PagerAdapter {
     Context context;

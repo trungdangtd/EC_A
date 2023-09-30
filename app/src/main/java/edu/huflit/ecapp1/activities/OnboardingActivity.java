@@ -1,4 +1,4 @@
-package edu.huflit.ecapp1;
+package edu.huflit.ecapp1.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -13,6 +13,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import edu.huflit.ecapp1.R;
+import edu.huflit.ecapp1.adapters.SliderAdapter;
 
 public class OnboardingActivity extends AppCompatActivity {
 
