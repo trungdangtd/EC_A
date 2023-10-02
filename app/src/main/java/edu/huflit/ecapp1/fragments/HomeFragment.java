@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -25,15 +26,21 @@ import java.util.List;
 
 import edu.huflit.ecapp1.R;
 import edu.huflit.ecapp1.adapters.CategoryAdapter;
+import edu.huflit.ecapp1.adapters.NewProductsAdapter;
 import edu.huflit.ecapp1.models.CategoryModel;
+import edu.huflit.ecapp1.models.NewProductsModel;
 
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView catRecyclerView;
+    RecyclerView catRecyclerView,newProductRecyclerview;
     //category recyclerview
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
+
+    //New Products RecyclerView
+    NewProductsAdapter newProductsAdapter;
+    List<NewProductsModel> newProductsModelList;
 
     //FireStore
     FirebaseFirestore db;
@@ -49,6 +56,7 @@ public class HomeFragment extends Fragment {
 
         View root= inflater.inflate(R.layout.fragment_home,container,false);
         catRecyclerView = root.findViewById(R.id.rec_category);
+        newProductRecyclerview = root.findViewById(R.id.new_product_rec);
 
         db = FirebaseFirestore.getInstance();
 
@@ -82,6 +90,30 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+        // New Products
+        newProductRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        newProductsModelList = new ArrayList<>();
+        newProductsAdapter = new NewProductsAdapter(getContext(),newProductsModelList);
+        newProductRecyclerview.setAdapter(newProductsAdapter);
+
+        db.collection("NewProducts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
+                                newProductsModelList.add(newProductsModel);
+                                newProductsAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
 
         return root;
     }
