@@ -1,15 +1,19 @@
 package edu.huflit.ecapp1.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -27,13 +31,17 @@ import java.util.List;
 import edu.huflit.ecapp1.R;
 import edu.huflit.ecapp1.adapters.CategoryAdapter;
 import edu.huflit.ecapp1.adapters.NewProductsAdapter;
+import edu.huflit.ecapp1.adapters.PopularProductsAdapter;
 import edu.huflit.ecapp1.models.CategoryModel;
 import edu.huflit.ecapp1.models.NewProductsModel;
+import edu.huflit.ecapp1.models.PopularProductsModel;
 
 
 public class HomeFragment extends Fragment {
+    LinearLayout linearLayout;
+    ProgressDialog progressDialog;
+    RecyclerView catRecyclerView,newProductRecyclerview,popularRecyclerview;
 
-    RecyclerView catRecyclerView,newProductRecyclerview;
     //category recyclerview
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
@@ -41,6 +49,10 @@ public class HomeFragment extends Fragment {
     //New Products RecyclerView
     NewProductsAdapter newProductsAdapter;
     List<NewProductsModel> newProductsModelList;
+
+    //Popular Products
+    PopularProductsAdapter popularProductsAdapter;
+    List<PopularProductsModel> popularProductsModelList;
 
     //FireStore
     FirebaseFirestore db;
@@ -55,11 +67,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View root= inflater.inflate(R.layout.fragment_home,container,false);
+
+        progressDialog = new ProgressDialog(getActivity());
         catRecyclerView = root.findViewById(R.id.rec_category);
         newProductRecyclerview = root.findViewById(R.id.new_product_rec);
+        popularRecyclerview = root.findViewById(R.id.popular_rec);
 
         db = FirebaseFirestore.getInstance();
 
+        linearLayout = root.findViewById(R.id.home_layout);
+        linearLayout.setVisibility(View.GONE);
         //slider ảnh
         ImageSlider imageSlider = root.findViewById(R.id.image_slider);
         List<SlideModel> slideModels = new ArrayList<>();
@@ -69,6 +86,11 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel(R.drawable.banner3,"70% off", ScaleTypes.CENTER_CROP));
 
         imageSlider.setImageList(slideModels);
+
+        progressDialog.setTitle("Chào Mừng Đến Với ECommerce App Của Chúng Tôi");
+        progressDialog.setMessage("Xin Vui Lòng Chờ....");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
         //Category
         catRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
@@ -86,6 +108,8 @@ public class HomeFragment extends Fragment {
                                 CategoryModel categoryModel = document.toObject(CategoryModel.class);
                                 categoryModelList.add(categoryModel);
                                 categoryAdapter.notifyDataSetChanged();
+                                linearLayout.setVisibility(View.VISIBLE);
+                                progressDialog.dismiss();
                             }
                         }
                     }
@@ -114,6 +138,28 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
+        //Popular Products
+        popularRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        popularProductsModelList = new ArrayList<>();
+        popularProductsAdapter = new PopularProductsAdapter(getContext(),popularProductsModelList);
+        popularRecyclerview.setAdapter(popularProductsAdapter);
+
+        db.collection("AllProducts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                PopularProductsModel popularProductsModel = document.toObject(PopularProductsModel.class);
+                                popularProductsModelList.add(popularProductsModel);
+                                popularProductsAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         return root;
     }
