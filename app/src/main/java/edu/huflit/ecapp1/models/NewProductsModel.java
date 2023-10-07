@@ -1,6 +1,8 @@
 package edu.huflit.ecapp1.models;
 
-public class NewProductsModel {
+import java.io.Serializable;
+
+public class NewProductsModel implements Serializable {
     String description;
     String name;
     String rating;
