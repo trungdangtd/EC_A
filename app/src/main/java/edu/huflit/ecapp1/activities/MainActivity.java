@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.huflit.ecapp1.fragments.HomeFragment;
 import edu.huflit.ecapp1.R;
+import edu.huflit.ecapp1.fragments.ManageFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +33,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
-        homeFragment = new HomeFragment();
-        loadFragment(homeFragment);
+        if( auth.getCurrentUser().getEmail() !=null && auth.getCurrentUser().getEmail().equals("admin@gmail.com")){
+            Toast.makeText(this, "Quản lý", Toast.LENGTH_SHORT).show();
+            homeFragment = new ManageFragment();
+            loadFragment(homeFragment);
+        }else{
+            Toast.makeText(this, "Khách hàng", Toast.LENGTH_SHORT).show();
+            homeFragment = new HomeFragment();
+            loadFragment(homeFragment);
+        }
     }
 
     private void loadFragment(Fragment homeFragment) {
@@ -56,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,RegistrationActivity.class));
             finish();
         } else
-            if (id == R.id.menu_my_cart) {
-                startActivity(new Intent(MainActivity.this,CartActivity.class));
-            }
-            return true;
+        if (id == R.id.menu_my_cart) {
+            startActivity(new Intent(MainActivity.this,CartActivity.class));
+        }
+        return true;
     }
 }

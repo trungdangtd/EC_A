@@ -62,7 +62,6 @@
         android:drawablePadding="10dp"
         android:elevation="3dp"
         android:hint="Mật khẩu:"
-        android:inputType="numberPassword"
         android:padding="15dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"

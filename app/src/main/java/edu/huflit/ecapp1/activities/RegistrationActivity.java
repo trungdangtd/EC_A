@@ -88,9 +88,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
     }
 
     public void signin(View view) {
