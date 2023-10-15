@@ -3,6 +3,27 @@ package edu.huflit.ecapp1.models;
 import java.io.Serializable;
 
 public class ShowAllModel implements Serializable {
+
+    String Id;
+
+    public ShowAllModel(String id, String description,String img_url, String name,int price, String rating,  String type) {
+        Id = id;
+        this.description = description;
+        this.img_url = img_url;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+        this.type = type;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
     String description;
     String name;
     String rating;
@@ -61,12 +82,12 @@ public class ShowAllModel implements Serializable {
         this.type = type;
     }
 
-    public ShowAllModel(String description, String name, String rating, int price, String img_url, String type) {
+    public ShowAllModel(String description,String img_url, String name,int price, String rating, String type) {
         this.description = description;
-        this.name = name;
-        this.rating = rating;
-        this.price = price;
         this.img_url = img_url;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
         this.type = type;
     }
 

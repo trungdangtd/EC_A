@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#8ff7fd"
-        android:fontFamily="@font/amethysta"
         android:gravity="center"
         android:padding="18dp"
         android:text="Total Price: 40$"

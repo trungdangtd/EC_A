@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -38,7 +39,14 @@
                 tools:ignore="HardcodedText,RtlHardcoded,TextSizeCheck" />
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cateList"
+            android:layout_width="match_parent"
+            android:layout_height="538dp" />
+
+
         <LinearLayout
+
             android:id="@+id/Add_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,49 +58,9 @@
                 android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
+
                 android:paddingLeft="10dp"
                 android:text="Thêm mặt hàng"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,UseCompatTextViewDrawableXml" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/update_Cat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="#D32F2F">
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="Sửa mặt hàng"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,UseCompatTextViewDrawableXml" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/del_Cat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="#D32F2F">
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="Xoá mặt hàng"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"

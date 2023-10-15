@@ -1,10 +1,15 @@
 package edu.huflit.ecapp1.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.MediaRouteButton;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +18,22 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.huflit.ecapp1.R;
 import edu.huflit.ecapp1.activities.AddProductActivity;
 import edu.huflit.ecapp1.activities.MainActivity;
+import edu.huflit.ecapp1.adapters.CateManageAdapter;
+import edu.huflit.ecapp1.adapters.CategoryAdapter;
+import edu.huflit.ecapp1.models.CategoryModel;
+import edu.huflit.ecapp1.models.ShowAllModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +51,12 @@ public class ManageFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    RecyclerView cateRecycleView;
+
+    CateManageAdapter cateManageAdapter;
+    List<ShowAllModel> showAllModellist;
+
+    FirebaseFirestore db;
     public ManageFragment() {
         // Required empty public constructor
     }
@@ -72,6 +96,10 @@ public class ManageFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
 
+        db = FirebaseFirestore.getInstance();
+
+        cateRecycleView = root.findViewById(R.id.cateList);
+
         btnAddOn = root.findViewById(R.id.Add_btn);
         btnAddOn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +108,27 @@ public class ManageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //Category
+        cateRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        showAllModellist = new ArrayList<>();
+        cateManageAdapter = new CateManageAdapter(getContext(),showAllModellist);
+        cateRecycleView.setAdapter(cateManageAdapter);
+
+        db.collection("ShowAll")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                ShowAllModel showAllModel = document.toObject(ShowAllModel.class);
+                                showAllModellist.add(showAllModel);
+                                cateManageAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
         return root;
     }
 }
