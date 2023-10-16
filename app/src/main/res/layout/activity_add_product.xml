@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.AddProductActivity">
+    tools:context=".activities.AddProductActivity"
+    android:background="@drawable/designlogin2">
 
 
     <TextView
@@ -29,8 +30,11 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
             android:layout_weight="1"
-            android:text="Id" />
+            android:text="Id:" />
 
         <EditText
             android:id="@+id/edtID"
@@ -52,7 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="description" />
+            android:text="description:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/edtDes"
@@ -74,7 +81,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hình ảnh" />
+            android:text="Hình ảnh:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/edtURL"
@@ -96,7 +106,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tên sản phẩm" />
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="Tên sản phẩm:" />
 
         <EditText
             android:id="@+id/edtName"
@@ -118,7 +131,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Giá sản phẩm" />
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="Giá sản phẩm:" />
 
         <EditText
             android:id="@+id/edtPrice"
@@ -140,7 +156,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Đánh giá" />
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="Đánh giá:" />
 
         <EditText
             android:id="@+id/edtRat"
@@ -162,7 +181,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thể loại" />
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="Thể loại:" />
 
         <EditText
             android:id="@+id/edtType"

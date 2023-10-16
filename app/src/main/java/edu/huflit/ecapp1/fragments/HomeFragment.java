@@ -37,6 +37,7 @@ import edu.huflit.ecapp1.adapters.PopularProductsAdapter;
 import edu.huflit.ecapp1.models.CategoryModel;
 import edu.huflit.ecapp1.models.NewProductsModel;
 import edu.huflit.ecapp1.models.PopularProductsModel;
+import edu.huflit.ecapp1.models.ShowAllModel;
 
 
 public class HomeFragment extends Fragment {
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment {
 
     //New Products RecyclerView
     NewProductsAdapter newProductsAdapter;
-    List<NewProductsModel> newProductsModelList;
+    List<ShowAllModel> newProductsModelList;
 
     //Popular Products
     PopularProductsAdapter popularProductsAdapter;
@@ -150,15 +151,15 @@ public class HomeFragment extends Fragment {
         newProductsAdapter = new NewProductsAdapter(getContext(),newProductsModelList);
         newProductRecyclerview.setAdapter(newProductsAdapter);
 
-        db.collection("NewProducts")
+        db.collection("ShowAll")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
-                                newProductsModelList.add(newProductsModel);
+                                ShowAllModel showAllModel = document.toObject(ShowAllModel.class);
+                                newProductsModelList.add(showAllModel);
                                 newProductsAdapter.notifyDataSetChanged();
                             }
                         } else {

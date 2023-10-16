@@ -18,13 +18,14 @@ import java.util.List;
 import edu.huflit.ecapp1.R;
 import edu.huflit.ecapp1.activities.DetailedActivity;
 import edu.huflit.ecapp1.models.NewProductsModel;
+import edu.huflit.ecapp1.models.ShowAllModel;
 
 public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder> {
 
     private Context context;
-    private List<NewProductsModel> list;
+    private List<ShowAllModel> list;
 
-    public NewProductsAdapter(Context context, List<NewProductsModel> list) {
+    public NewProductsAdapter(Context context, List<ShowAllModel> list) {
         this.context = context;
         this.list = list;
     }

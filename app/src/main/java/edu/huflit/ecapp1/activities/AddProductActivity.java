@@ -79,8 +79,7 @@ public class AddProductActivity extends AppCompatActivity {
                         edType.getText().toString()));
                     Toast.makeText(AddProductActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                 }
-
-
+                finish();
             }
         });
     }
