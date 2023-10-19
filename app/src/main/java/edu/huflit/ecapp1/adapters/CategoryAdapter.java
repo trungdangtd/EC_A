@@ -57,6 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return list.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView catImg;

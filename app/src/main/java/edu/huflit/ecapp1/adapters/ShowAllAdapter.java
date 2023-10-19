@@ -56,6 +56,12 @@ public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHold
         return list.size();
     }
 
+    public void setFilter(List<ShowAllModel> filteredList) {
+        list = filteredList; // Cập nhật danh sách để hiển thị danh sách đã lọc
+        notifyDataSetChanged();
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mItemImage;

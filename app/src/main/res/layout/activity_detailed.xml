@@ -49,7 +49,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:fontFamily="@font/amethysta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/detailed_name"
@@ -60,7 +59,6 @@
 
             <TextView
                 android:id="@+id/rating"
-                android:fontFamily="@font/amethysta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4.0"
@@ -84,7 +82,6 @@
 
         <TextView
             android:id="@+id/detailed_desc"
-            android:fontFamily="@font/amethysta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -97,8 +94,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/amethysta"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:text="$"
                 android:textStyle="bold"
-                android:fontFamily="@font/amethysta"
                 android:textColor="@color/purple_700"/>
             <TextView
                 android:id="@+id/detailed_price"
@@ -119,7 +114,6 @@
                 android:layout_height="wrap_content"
                 android:text="420"
                 android:textStyle="bold"
-                android:fontFamily="@font/amethysta"
                 android:textColor="@color/purple_700"/>
 
         </LinearLayout>

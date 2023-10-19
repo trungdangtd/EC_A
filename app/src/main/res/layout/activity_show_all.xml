@@ -10,19 +10,41 @@
         android:id="@+id/show_all_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#8ff7fd"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#8ff7fd"
-        android:minHeight="?attr/actionBarSize"
-        app:title="All Items"
-        android:theme="?attr/actionBarTheme"/>
+        app:title="All Items" />
+
+
+    <EditText
+        android:id="@+id/search_edittext"
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Tìm kiếm sản phẩm..."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_all_toolbar" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/show_all_toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/show_all_rec"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_all_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_edittext" />
 </androidx.constraintlayout.widget.ConstraintLayout>

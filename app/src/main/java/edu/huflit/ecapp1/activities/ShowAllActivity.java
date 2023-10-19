@@ -2,12 +2,16 @@ package edu.huflit.ecapp1.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,15 +31,18 @@ public class ShowAllActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ShowAllAdapter showAllAdapter;
     List<ShowAllModel> showAllModelList;
-
     Toolbar toolbar;
     FirebaseFirestore firestore;
+    EditText searchEditText;
+    Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all);
 
+        searchEditText = findViewById(R.id.search_edittext);
+        searchButton = findViewById(R.id.search_button);
         toolbar = findViewById(R.id.show_all_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,7 +56,6 @@ public class ShowAllActivity extends AppCompatActivity {
         showAllModelList = new ArrayList<>();
         showAllAdapter = new ShowAllAdapter(this,showAllModelList);
         recyclerView.setAdapter(showAllAdapter);
-
 
 
         if(type == null || type.isEmpty()){
@@ -172,5 +178,21 @@ public class ShowAllActivity extends AppCompatActivity {
                         }
                     });
         }
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchEditText.getText().toString();
+                filterData(query);
+            }
+        });
+    }
+    private void filterData(String query) {
+        List<ShowAllModel> filteredList = new ArrayList<>();
+        for (ShowAllModel model : showAllModelList) {
+            if (model.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(model);
+            }
+        }
+        showAllAdapter.setFilter(filteredList);
     }
 }
