@@ -3,10 +3,17 @@ package edu.huflit.ecapp1.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +31,10 @@ import edu.huflit.ecapp1.models.MyCartModel;
 import edu.huflit.ecapp1.models.ShowAllModel;
 
 public class CartActivity extends AppCompatActivity {
+
+    int overAllTotalAmount;
+
+    TextView overAllAmount;
     Toolbar toolbar;
     RecyclerView recyclerView;
     List<MyCartModel> cartModelList;
@@ -31,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +54,11 @@ public class CartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //get data from cart adapter
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(mMessageReceiver,new IntentFilter("MyTotalAmount"));
+
+        overAllAmount = findViewById(R.id.textViewOver);
         recyclerView = findViewById(R.id.cart_rec);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
@@ -62,4 +79,12 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
+    public BroadcastReceiver mMessageReceiver =  new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int totalBill = intent.getIntExtra("totalAmount",0);
+            overAllAmount.setText("Total Amount :" + totalBill + "$");
+        }
+    };
 }
