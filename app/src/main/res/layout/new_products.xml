@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:padding="5dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,8 @@
             android:src="@drawable/milk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -31,7 +32,7 @@
             android:fontFamily="@font/amethysta"
             android:padding="6dp"
             android:text="New"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/new_img"
@@ -47,6 +48,7 @@
             android:fontFamily="@font/amethysta"
             android:text="Product Name"
             android:textSize="17sp"
+            android:gravity="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
