@@ -8,10 +8,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,7 +27,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.huflit.ecapp1.R;
@@ -36,6 +48,9 @@ public class ShowAllActivity extends AppCompatActivity {
     EditText searchEditText;
     Button searchButton;
 
+    ImageView sortBtns;
+    TextView sortTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +59,8 @@ public class ShowAllActivity extends AppCompatActivity {
         searchEditText = findViewById(R.id.search_edittext);
         searchButton = findViewById(R.id.search_button);
         toolbar = findViewById(R.id.show_all_toolbar);
+        sortBtns = findViewById(R.id.sortBtn);
+        sortTitle = findViewById(R.id.sortTitle);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -58,6 +75,7 @@ public class ShowAllActivity extends AppCompatActivity {
         recyclerView.setAdapter(showAllAdapter);
 
 
+        sortTitle.setText("Sắp xếp");
         if(type == null || type.isEmpty()){
             firestore.collection("ShowAll")
                     .get()
@@ -185,6 +203,13 @@ public class ShowAllActivity extends AppCompatActivity {
                 filterData(query);
             }
         });
+
+        sortBtns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SortBtn(view);
+            }
+        });
     }
     private void filterData(String query) {
         List<ShowAllModel> filteredList = new ArrayList<>();
@@ -194,5 +219,109 @@ public class ShowAllActivity extends AppCompatActivity {
             }
         }
         showAllAdapter.setFilter(filteredList);
+    }
+
+    void SortBtn(View view){
+// Create a new PopupWindow instance
+        PopupWindow popup = new PopupWindow(view.getContext().getApplicationContext());
+
+        // Inflate your custom layout
+        LayoutInflater inflater = (LayoutInflater) view.getContext().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.sort_option, null);
+
+        RadioButton sortNameAscBtn = layout.findViewById(R.id.TenAsc);
+        RadioButton sortNameDescBtn = layout.findViewById(R.id.TenDesc);
+        RadioButton sortGiaTCBtn = layout.findViewById(R.id.giaThapCao);
+        RadioButton sortGiaCTBtn = layout.findViewById(R.id.giaCaoThap);
+        Button closeBtn = layout.findViewById(R.id.closeBtn);
+
+        sortNameAscBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortDataByNameAsc();
+                sortTitle.setText("Tên tăng dần");
+                popup.dismiss();
+            }
+        });
+        sortNameDescBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortDataByNameDesc();
+                sortTitle.setText("Tên giảm dần");
+                popup.dismiss();
+            }
+        });
+        sortGiaTCBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortDataByPriceTC();
+                sortTitle.setText("Giá tăng dần");
+                popup.dismiss();
+            }
+        });
+
+        sortGiaCTBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortDataByPriceCT();
+                sortTitle.setText("Giá giảm dần");
+                popup.dismiss();
+            }
+        });
+
+        //đóng cửa sổ popup
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+        // Set the custom layout as the content view for the popup window
+        popup.setContentView(layout);
+
+        // Set the width and height of the popup window
+        popup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // Show the popup window
+        popup.showAtLocation(view, Gravity.CENTER, 0, 0);
+    }
+    private void sortDataByNameAsc() {
+        Collections.sort(showAllModelList, new Comparator<ShowAllModel>() {
+            @Override
+            public int compare(ShowAllModel model1, ShowAllModel model2) {
+                return model1.getName().compareToIgnoreCase(model2.getName());
+            }
+        });
+        showAllAdapter.notifyDataSetChanged();
+    }
+    private void sortDataByNameDesc() {
+        Collections.sort(showAllModelList, new Comparator<ShowAllModel>() {
+            @Override
+            public int compare(ShowAllModel model1, ShowAllModel model2) {
+                return model2.getName().compareToIgnoreCase(model1.getName());
+            }
+        });
+        showAllAdapter.notifyDataSetChanged();
+    }
+    private void sortDataByPriceTC() {
+        Collections.sort(showAllModelList, new Comparator<ShowAllModel>() {
+            @Override
+            public int compare(ShowAllModel model1, ShowAllModel model2) {
+                // Sắp xếp theo giá tiền tăng dần
+                return Double.compare(model1.getPrice(), model2.getPrice());
+            }
+        });
+        showAllAdapter.notifyDataSetChanged();
+    }
+    private void sortDataByPriceCT() {
+        Collections.sort(showAllModelList, new Comparator<ShowAllModel>() {
+            @Override
+            public int compare(ShowAllModel model1, ShowAllModel model2) {
+                // Sắp xếp theo giá tiền tăng dần
+                return Double.compare(model2.getPrice(), model1.getPrice());
+            }
+        });
+        showAllAdapter.notifyDataSetChanged();
     }
 }

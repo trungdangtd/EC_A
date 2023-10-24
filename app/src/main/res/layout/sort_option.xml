@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedcontainer"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Sắp xếp:"
+        android:textColor="#F57F17"
+        android:textSize="24dp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <RadioButton
+            android:id="@+id/TenAsc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên Asc"
+            android:textColor="#F57F17" />
+
+        <RadioButton
+            android:id="@+id/TenDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên Desc"
+            android:textColor="#F57F17" />
+
+        <RadioButton
+            android:id="@+id/giaThapCao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giá thấp - cao"
+            android:textColor="#F57F17" />
+
+        <RadioButton
+            android:id="@+id/giaCaoThap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giá cao - thấp"
+            android:textColor="#F57F17" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/closeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đóng" />
+
+</LinearLayout>
