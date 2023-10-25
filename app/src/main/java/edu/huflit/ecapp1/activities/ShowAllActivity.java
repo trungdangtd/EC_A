@@ -58,7 +58,9 @@ public class ShowAllActivity extends AppCompatActivity {
 
         searchEditText = findViewById(R.id.search_edittext);
         searchButton = findViewById(R.id.search_button);
+
         toolbar = findViewById(R.id.show_all_toolbar);
+
         sortBtns = findViewById(R.id.sortBtn);
         sortTitle = findViewById(R.id.sortTitle);
         setSupportActionBar(toolbar);

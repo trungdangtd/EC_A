@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,13 @@ public class AddAddressActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.add_address_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -86,6 +94,8 @@ public class AddAddressActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     Toast.makeText(AddAddressActivity.this, "đã thêm địa chỉ", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(AddAddressActivity.this,DetailedActivity.class));
+                                    finish();
                                 }
                             });
                 }else {

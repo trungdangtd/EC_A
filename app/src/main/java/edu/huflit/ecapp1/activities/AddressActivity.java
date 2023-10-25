@@ -25,6 +25,9 @@ import edu.huflit.ecapp1.R;
 import edu.huflit.ecapp1.adapters.AddressAdapter;
 import edu.huflit.ecapp1.models.AddressModel;
 import edu.huflit.ecapp1.models.MyCartModel;
+import edu.huflit.ecapp1.models.NewProductsModel;
+import edu.huflit.ecapp1.models.PopularProductsModel;
+import edu.huflit.ecapp1.models.ShowAllModel;
 
 public class AddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress {
 
@@ -46,6 +49,16 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         toolbar = findViewById(R.id.address_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //Lấy dữ liệu từ detailed activity
+        Object obj = getIntent().getSerializableExtra("item");
 
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -74,7 +87,20 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddressActivity.this,PaymentActivity.class));
+                double amount = 0.0;
+                if (obj instanceof NewProductsModel){
+                    NewProductsModel newProductsModel = (NewProductsModel) obj;
+                    amount = newProductsModel.getPrice();
+                }if (obj instanceof PopularProductsModel){
+                    PopularProductsModel popularProductsModel = (PopularProductsModel) obj;
+                    amount = popularProductsModel.getPrice();
+                }if (obj instanceof ShowAllModel){
+                    ShowAllModel showAllModel = (ShowAllModel) obj;
+                    amount = showAllModel.getPrice();
+                }
+                Intent intent = new Intent(AddressActivity.this,PaymentActivity.class);
+                intent.putExtra("amount",amount);
+                startActivity(intent);
             }
         });
         addAddress.setOnClickListener(new View.OnClickListener() {

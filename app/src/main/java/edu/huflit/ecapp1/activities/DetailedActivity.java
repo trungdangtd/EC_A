@@ -59,6 +59,14 @@ public class DetailedActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.detailed_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         final Object obj = getIntent().getSerializableExtra("detailed");
@@ -125,7 +133,18 @@ public class DetailedActivity extends AppCompatActivity {
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DetailedActivity.this,AddressActivity.class));
+                Intent intent = new Intent(DetailedActivity.this,AddressActivity.class);
+
+                if(newProductsModel!=null){
+                    intent.putExtra("item",newProductsModel);
+                }
+                if (popularProductsModel!=null){
+                    intent.putExtra("item",popularProductsModel);
+                }
+                if (showAllModel !=null){
+                    intent.putExtra("item",showAllModel);
+                }
+                startActivity(intent);
             }
         });
         //add to cart
