@@ -48,6 +48,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
         paymentBtn = findViewById(R.id.pay_btn);
 
         subTotal.setText(amount+"$");
+        total.setText(amount+"$");
 
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override

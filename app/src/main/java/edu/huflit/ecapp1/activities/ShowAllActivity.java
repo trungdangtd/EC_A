@@ -60,11 +60,18 @@ public class ShowAllActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.search_button);
 
         toolbar = findViewById(R.id.show_all_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         sortBtns = findViewById(R.id.sortBtn);
         sortTitle = findViewById(R.id.sortTitle);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String type = getIntent().getStringExtra("type");
 
