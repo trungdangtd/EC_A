@@ -176,6 +176,7 @@ public class CartActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     public BroadcastReceiver mMessageReceiver =  new BroadcastReceiver() {
