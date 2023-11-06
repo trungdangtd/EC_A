@@ -56,16 +56,19 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(userName))
         {
+            name.setError("khong duoc de trong ten tai khoan");
             Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
         }
 
         if (TextUtils.isEmpty(userEmail))
         {
+            email.setError("khing duoc de trong email");
             Toast.makeText(this, "Enter Email Address!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(userPassword))
         {
+            password.setError("khong duoc de trong password");
             Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
             return;
         }

@@ -50,11 +50,14 @@ public class LoginActivity extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 if (TextUtils.isEmpty(email))
                 {
+                    edtLogin.setError("Email khong duoc de trong ");
                     Toast.makeText(v.getContext(), "Vui lòng nhập mail", Toast.LENGTH_SHORT).show();
+
                 }
 
                 if (TextUtils.isEmpty(password))
                 {
+                    edtPassword.setError("Password khong duoc de trong");
                     Toast.makeText(v.getContext(), "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
                     return;
                 }

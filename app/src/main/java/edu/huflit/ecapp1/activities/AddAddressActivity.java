@@ -72,17 +72,32 @@ public class AddAddressActivity extends AppCompatActivity {
                 if(!userName.isEmpty()){
                     final_address+=userName;
                 }
+                if(userName.isEmpty()){
+                    name.setError("khong duoc de trong ten dia chi");
+                }
                 if(!userCity.isEmpty()){
                     final_address+=userCity;
+                }
+                if(userCity.isEmpty()){
+                    city.setError("khong duoc de trong thanh pho");
                 }
                 if(!userAddress.isEmpty()){
                     final_address+=userAddress;
                 }
+                if(userAddress.isEmpty()){
+                    address.setError("khong duoc de trong dia chi");
+                }
                 if(!userCode.isEmpty()){
                     final_address+=userCode;
                 }
+                if(userCode.isEmpty()){
+                    postalCode.setError("khong duoc de trong ma buu dien");
+                }
                 if(!userNumber.isEmpty()){
                     final_address+=userNumber;
+                }
+                if(userNumber.isEmpty()){
+                    phoneNumber.setError("khong duoc de trong so dien thoai");
                 }
                 if(!userName.isEmpty() && !userCity.isEmpty() && !userAddress.isEmpty() && !userCode.isEmpty() && !userNumber.isEmpty()){
 
@@ -98,6 +113,9 @@ public class AddAddressActivity extends AppCompatActivity {
                                     finish();
                                 }
                             });
+                }
+                if(userName.isEmpty() && userCity.isEmpty() && userAddress.isEmpty() && userCode.isEmpty() && userNumber.isEmpty()){
+                    Toast.makeText(AddAddressActivity.this, "vui long nhap day du du lieu", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(AddAddressActivity.this, "đầy", Toast.LENGTH_SHORT).show();
                 }
