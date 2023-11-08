@@ -96,6 +96,8 @@ public class ManageFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
 
+        final TextView textTotalProducts = root.findViewById(R.id.textTotalProducts);
+
         db = FirebaseFirestore.getInstance();
 
         cateRecycleView = root.findViewById(R.id.cateList);
@@ -121,11 +123,14 @@ public class ManageFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
+                            int totalProducts = 0;
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 ShowAllModel showAllModel = document.toObject(ShowAllModel.class);
                                 showAllModellist.add(showAllModel);
+                                totalProducts++;
                                 cateManageAdapter.notifyDataSetChanged();
                             }
+                            textTotalProducts.setText("Tổng sản phẩm hiện có: " + totalProducts);
                         }
                     }
                 });
