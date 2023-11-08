@@ -2,14 +2,13 @@ package edu.huflit.ecapp1.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,12 +47,14 @@ public class ShowAllActivity extends AppCompatActivity {
 
     ImageView sortBtns;
     TextView sortTitle;
-
+    EditText minPriceEditText,maxPriceEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all);
 
+        minPriceEditText = findViewById(R.id.min_price_edittext);
+        maxPriceEditText = findViewById(R.id.max_price_edittext);
         searchEditText = findViewById(R.id.search_edittext);
         searchButton = findViewById(R.id.search_button);
 
@@ -208,9 +207,18 @@ public class ShowAllActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!TextUtils.isEmpty(minPriceEditText.getText().toString()) && !TextUtils.isEmpty(maxPriceEditText.getText().toString())){
+                    double minPrice = Double.parseDouble(minPriceEditText.getText().toString());
+                    double maxPrice = Double.parseDouble(maxPriceEditText.getText().toString());
+                    filterDataByPriceRange( minPrice,  maxPrice);
+                }
+                else {
                 String query = searchEditText.getText().toString();
                 filterData(query);
             }
+
+        }
         });
 
         sortBtns.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +232,15 @@ public class ShowAllActivity extends AppCompatActivity {
         List<ShowAllModel> filteredList = new ArrayList<>();
         for (ShowAllModel model : showAllModelList) {
             if (model.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(model);
+            }
+        }
+        showAllAdapter.setFilter(filteredList);
+    }
+    private void filterDataByPriceRange(double minPrice, double maxPrice) {
+        List<ShowAllModel> filteredList = new ArrayList<>();
+        for (ShowAllModel model : showAllModelList) {
+            if (model.getPrice() >= minPrice && model.getPrice() <= maxPrice) {
                 filteredList.add(model);
             }
         }

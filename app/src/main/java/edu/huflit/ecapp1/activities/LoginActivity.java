@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     edtLogin.setError("Email khong duoc de trong ");
                     Toast.makeText(v.getContext(), "Vui lòng nhập mail", Toast.LENGTH_SHORT).show();
-
                 }
 
                 if (TextUtils.isEmpty(password))
